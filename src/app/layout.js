@@ -14,9 +14,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${inter.variable}`} style={{ maxWidth: "500px", width: "100%", margin: "0 auto", overflowX: "hidden" }}>
-        {children}
-      </body>
+      <body className={`${inter.variable}`}>{children}</body>
     </html>
   );
 }
