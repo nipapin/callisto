@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Motion from "@/components/Motion";
 
 const CANVAS_WIDTH = 390;
 const CANVAS_HEIGHT = 872;
@@ -66,44 +67,28 @@ export default async function HighlightsPage({ params }) {
   return (
     <div
       style={{
-        position: "relative",
-        width: "100vw",
-        height: "100vh",
-        overflow: "hidden",
         display: "flex",
         flexDirection: "column",
         gap: "16px",
+        width: "91vw",
+        margin: "0 auto",
         padding: "16px",
+        alignItems: "center",
+        zIndex: 1,
       }}
     >
-      {images.map((image, index) => {
-        return (
-          <Image
-            key={index}
-            src={image.src}
-            alt={image.alt}
-            width={image.width}
-            height={image.height}
-            style={{
-              position: "absolute",
-              ...image.transform,
-            }}
-          />
-        );
-      })}
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "16px",
-          width: "91vw",
-          margin: "0 auto",
-          padding: "16px",
-          alignItems: "center",
-          zIndex: 1,
-        }}
+      <Motion
+        initial={{ y: 100, x: 0, opacity: 0 }}
+        animate={{ x: 0, y: 0, opacity: 1 }}
+        transition={{ duration: 1, ease: "easeInOut" }}
       >
         <Image src="/images/logo-type.png" alt="Logo Type" width={520} height={204} style={{ width: "130px", height: "auto" }} />
+      </Motion>
+      <Motion
+        initial={{ y: 100, x: 0, opacity: 0 }}
+        animate={{ x: 0, y: 0, opacity: 1 }}
+        transition={{ duration: 1, ease: "easeInOut", delay: 0.25 }}
+      >
         <Image
           src="/images/year-title.png"
           alt="Year Title"
@@ -111,15 +96,19 @@ export default async function HighlightsPage({ params }) {
           height={1025}
           style={{ width: "255px", height: "auto", marginLeft: "40px" }}
         />
-        {texts.map((text) => (
-          <p
-            key={text}
-            style={{ fontSize: "16px", lineHeight: "1.24", letterSpacing: "-2.2%", textAlign: "center", color: "var(--foreground)" }}
-          >
+      </Motion>
+      {texts.map((text, index) => (
+        <Motion
+          key={text}
+          initial={{ y: 100, x: 0, opacity: 0 }}
+          animate={{ x: 0, y: 0, opacity: 1 }}
+          transition={{ duration: 1, ease: "easeInOut", delay: 0.5 + index * 0.25 }}
+        >
+          <p style={{ fontSize: "16px", lineHeight: "1.24", letterSpacing: "-2.2%", textAlign: "center", color: "var(--foreground)" }}>
             {text}
           </p>
-        ))}
-      </div>
+        </Motion>
+      ))}
     </div>
   );
 }
